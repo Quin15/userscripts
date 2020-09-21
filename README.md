@@ -5,7 +5,7 @@ Universal Interactive Booru Image Resizer
 
 About
 --------
-This is a script that resizes images on booru sites to exactly fit the clients window, on either width or height whilst keeping the original image proportions. It then grants the user the ability to zoom in or out however much they want using simple mouse clicks or taps. It also allows users to resize images to exact decimal percentages. More info on the user actions below.
+This is a script that resizes images on booru sites to exactly fit the client's window, on either width or height whilst keeping the original image proportions. It then grants the user the ability to zoom in or out however much they want using simple mouse clicks or taps. It also allows users to resize images to exact decimal percentages. More info on the user actions below.
 
 
 Websites
@@ -87,7 +87,7 @@ Websites
   <tr>
     <td>KeyControl</td>
     <td>['Alt', 'r']</td>
-    <td>Determines which keys will activate prompt for image resizing. For example: ['Alt', 'Control', 'q'] for Alt+Ctrl+Q. If yopu're not sure what the keycode for a certain key is check using https://keycode.info/ then copy "event.key"</td>
+    <td>Determines which keys will activate prompt for image resizing. For example: ['Alt', 'Control', 'q'] for Alt+Ctrl+Q. If you're not sure what the keycode for a certain key is check using https://keycode.info/ then copy "event.key"</td>
   </tr>
 </tbody>
 </table>
