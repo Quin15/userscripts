@@ -24,7 +24,7 @@ Websites
   * ![Image](https://e621.net//favicon.ico "icon") e621.net
   * ![Image](https://drunkenpumken.booru.org/favicon.ico "icon") drunkenpumken.booru.org
   
-  interactability 
+  Interactability 
   -----------
 <table>
 <thead>
