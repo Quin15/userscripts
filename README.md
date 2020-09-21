@@ -3,6 +3,11 @@ Universal Interactive Booru Image Resizer
 
 **Disclaimer:** This code is messy. It has a bunch of duplicate code. It's not pretty, but it works fine. I made this for myself by myself without the intention of putting it out there, but I thought others may find this useful.
 
+About
+--------
+This is a script that resizes images on booru sites to exactly fit the clients window, on either width or height whilst keeping the original image proportions. It then grants the user the ability to zoom in or out however much they want using simple mouse clicks or taps. It also allows users to resize images to exact decimal percentages. More info on the user actions below.
+
+
 Websites
 --------
 
