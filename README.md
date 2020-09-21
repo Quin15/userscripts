@@ -86,7 +86,7 @@ Websites
   </tr>
   <tr>
     <td>KeyControl</td>
-    <td style="min-width: 100px;">['Alt', 'r']</td>
+    <td>['Alt', 'r']</td>
     <td>Determines which keys will activate prompt for image resizing. For example: ['Alt', 'Control', 'q'] for Alt+Ctrl+Q. If yopu're not sure what the keycode for a certain key is check using https://keycode.info/ then copy "event.key"</td>
   </tr>
 </tbody>
