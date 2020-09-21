@@ -24,8 +24,10 @@
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-// Enable or disable this setting to check for ALT+R to change image size percentage
-var CheckKeyPress = true; // 1 to enable, other to disable.
+
+var CheckKeyPress = true; // Enable or disable this setting to check for ALT+R to change image size percentage // 1 to enable, other to disable.
+var imageDecreaseAmount = 1.2; // Increase image multiplied by this amount on a single click // Default = 1.2x
+var imageIncreaseAmount = 1.2; // Decrease image multiplied by this amount on a double click // Default = 1.2x
 
 if (CheckKeyPress == true) {
     document.onkeydown = keydown;
@@ -67,12 +69,12 @@ if (site == 'chan.sankakucomplex.com') {
                     var currentDomimgWidth = window.DOMimage.width
                     if (window.clickCount == 1) {
                         // Single click - Make image 1.2 times smaller
-                        window.DOMimage.height = currentDOMimgHeight / 1.2;
-                        window.DOMimage.width = currentDomimgWidth / 1.2;
+                        window.DOMimage.height = currentDOMimgHeight / imageDecreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth / imageDecreaseAmount;
                     } else if(window.clickCount == 2) {
                         // Double click - Make image 1.2 times larger
-                        window.DOMimage.height = currentDOMimgHeight * 1.2;
-                        window.DOMimage.width = currentDomimgWidth * 1.2;
+                        window.DOMimage.height = currentDOMimgHeight * imageIncreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth * imageIncreaseAmount;
                     } else {
                         // Triple click - Revert image back to default new size
                         window.DOMimage.height = window.DOMimageNewHeight;
@@ -131,12 +133,12 @@ if (site == 'danbooru.donmai.us') {
                 setTimeout(function() {
                     if (window.clickCount == 1) {
                         // Single click - Make image 1.2 times smaller
-                        window.DOMimage.style.height = (window.DOMimage.style.height.replace('px', '') / 1.2) + "px";
-                        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') / 1.2) + "px";
+                        window.DOMimage.style.height = (window.DOMimage.style.height.replace('px', '') / imageDecreaseAmount) + "px";
+                        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') / imageDecreaseAmount) + "px";
                     } else if(window.clickCount == 2) {
                         // Double click - Make image 1.2 times larger
-                        window.DOMimage.style.height = (window.DOMimage.style.height.replace('px', '') * 1.2) + "px";
-                        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * 1.2) + "px";
+                        window.DOMimage.style.height = (window.DOMimage.style.height.replace('px', '') * imageIncreaseAmount) + "px";
+                        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * imageIncreaseAmount) + "px";
                     } else {
                         // Triple click - Revert image back to default new size
                         window.DOMimage.style.height = window.DOMimageNewHeight + 'px';
@@ -197,10 +199,10 @@ if (site == 'gelbooru.com') {
                 setTimeout(function() {
                     if (window.clickCount == 1) {
                         // Single click - Make image 1.2 times smaller
-                        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') / 1.2) + "px";
+                        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') / imageDecreaseAmount) + "px";
                     } else if(window.clickCount == 2) {
                         // Double click - Make image 1.2 times larger
-                        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * 1.2) + "px";
+                        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * imageIncreaseAmount) + "px";
                     } else {
                         // Triple click - Revert image back to default new size
                         window.DOMimage.style.width = window.DOMimageNewWidth + 'px';
@@ -264,12 +266,12 @@ if (site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || sit
                     var currentDomimgWidth = window.DOMimage.width
                     if (window.clickCount == 1) {
                         // Single click - Make image 1.2 times smaller
-                        window.DOMimage.height = currentDOMimgHeight / 1.2;
-                        window.DOMimage.width = currentDomimgWidth / 1.2;
+                        window.DOMimage.height = currentDOMimgHeight / imageDecreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth / imageDecreaseAmount;
                     } else if(window.clickCount == 2) {
                         // Double click - Make image 1.2 times larger
-                        window.DOMimage.height = currentDOMimgHeight * 1.2;
-                        window.DOMimage.width = currentDomimgWidth * 1.2;
+                        window.DOMimage.height = currentDOMimgHeight * imageIncreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth * imageIncreaseAmount;
                     } else {
                         // Triple click - Revert image back to default new size
                         window.DOMimage.height = window.DOMimageNewHeight;
@@ -342,12 +344,12 @@ if (site == 'rule34.paheal.net') {
                     var currentDomimgWidth = window.DOMimage.width
                     if (window.clickCount == 1) {
                         // Single click - Make image 1.2 times smaller
-                        window.DOMimage.height = currentDOMimgHeight / 1.2;
-                        window.DOMimage.width = currentDomimgWidth / 1.2;
+                        window.DOMimage.height = currentDOMimgHeight / imageDecreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth / imageDecreaseAmount;
                     } else if(window.clickCount == 2) {
                         // Double click - Make image 1.2 times larger
-                        window.DOMimage.height = currentDOMimgHeight * 1.2;
-                        window.DOMimage.width = currentDomimgWidth * 1.2;
+                        window.DOMimage.height = currentDOMimgHeight * imageIncreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth * imageIncreaseAmount;
                     } else {
                         // Triple click - Revert image back to default new size
                         window.DOMimage.height = window.DOMimageNewHeight;
@@ -409,12 +411,12 @@ if (site == 'nozomi.la') {
                     var currentDomimgWidth = window.DOMimage.width
                     if (window.clickCount == 1) {
                         // Single click - Make image 1.2 times smaller
-                        window.DOMimage.height = currentDOMimgHeight / 1.2;
-                        window.DOMimage.width = currentDomimgWidth / 1.2;
+                        window.DOMimage.height = currentDOMimgHeight / imageDecreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth / imageDecreaseAmount;
                     } else if(window.clickCount == 2) {
                         // Double click - Make image 1.2 times larger
-                        window.DOMimage.height = currentDOMimgHeight * 1.2;
-                        window.DOMimage.width = currentDomimgWidth * 1.2;
+                        window.DOMimage.height = currentDOMimgHeight * imageIncreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth * imageIncreaseAmount;
                     } else {
                         // Triple click - Revert image back to default new size
                         window.DOMimage.height = window.DOMimageNewHeight;
@@ -474,12 +476,12 @@ if (site == 'e621.net') {
                     var currentDomimgWidth = window.DOMimage.width
                     if (window.clickCount == 1) {
                         // Single click - Make image 1.2 times smaller
-                        window.DOMimage.height = currentDOMimgHeight / 1.2;
-                        window.DOMimage.width = currentDomimgWidth / 1.2;
+                        window.DOMimage.height = currentDOMimgHeight / imageDecreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth / imageDecreaseAmount;
                     } else if(window.clickCount == 2) {
                         // Double click - Make image 1.2 times larger
-                        window.DOMimage.height = currentDOMimgHeight * 1.2;
-                        window.DOMimage.width = currentDomimgWidth * 1.2;
+                        window.DOMimage.height = currentDOMimgHeight * imageIncreaseAmount;
+                        window.DOMimage.width = currentDomimgWidth * imageIncreaseAmount;
                     } else {
                         // Triple click - Revert image back to default new size
                         window.DOMimage.height = window.DOMimageNewHeight;
@@ -536,9 +538,9 @@ function PercentageResize() {
         window.DOMimage.height = window.DOMimageNewHeight * (window.selectedPercentage / 100);
         window.DOMimage.width = window.DOMimageNewWidth * (window.selectedPercentage / 100);
     } else if (site == 'danbooru.donmai.us') {
-        window.DOMimage.style.height = (window.DOMimage.style.height.replace('px', '') * 1.2) + "px";
-        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * 1.2) + "px";
+        window.DOMimage.style.height = (window.DOMimage.style.height.replace('px', '') * imageIncreaseAmount) + "px";
+        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * imageIncreaseAmount) + "px";
     } else if (site == 'gelbooru.com'){
-        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * 1.2) + "px";
+        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * imageIncreaseAmount) + "px";
     };
 };
