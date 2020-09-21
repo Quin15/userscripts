@@ -82,7 +82,7 @@ Websites
   <tr>
     <td>singleClickDecrease</td>
     <td>true</td>
-    <td>Single clicking an image will decreases it's size and double clicking will increase its size. Change this setting to false to flip this behaviour</td>
+    <td>Single clicking an image will decreases its size and double clicking will increase its size. Change this setting to false to flip this behaviour</td>
   </tr>
   <tr>
     <td>KeyControl</td>
