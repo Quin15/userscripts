@@ -3,7 +3,7 @@
 // @namespace   Quin15
 // @version     0.0.1
 // @author      Quin15
-// @downloadURL
+// @downloadURL https://github.com/Quin15/userscripts/blob/master/universal-interactive-booru-image-resizer.js
 
 // @match       *://chan.sankakucomplex.com/*
 // @match       *://danbooru.donmai.us/*
