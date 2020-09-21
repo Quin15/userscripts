@@ -29,13 +29,10 @@
 var CheckKeyPress = true; // Enable or disable this setting to check for ALT+R to change image size percentage // 1 to enable, other to disable.
 var imageDecreaseAmount = 1.2; // Increase image multiplied by this amount on a single click // Default = 1.2x
 var imageIncreaseAmount = 1.2; // Decrease image multiplied by this amount on a double click // Default = 1.2x
-var singleClickDecrease = false; // Single click decrease image size // Default true // false means single click increases and double click decreases
+var singleClickDecrease = true; // Single click decrease image size // Default true // false means single click increases and double click decreases
+window.KeyControl = ['Alt', 'r']; // Determines which keys will activate prompt for image resizing
 
 //////////////////////////////////////////////////////////////////////////////////////
-
-if (CheckKeyPress == true) {
-    document.onkeydown = keydown;
-};
 
 if (singleClickDecrease) {
     window.singleClickAction = 1;
@@ -45,22 +42,43 @@ if (singleClickDecrease) {
     window.doubleClickAction = 1;
 };
 
-window.selectedPercentage = 100;
-function keydown (evt) {
-    if (!evt) evt = event;
-    if (evt.altKey && evt.keyCode === 82) {
-        var inputPercent = window.prompt("Resize image to input percentage", window.selectedPercentage.toFixed(2));
-        if (parseFloat(inputPercent) > 0) {
-            window.selectedPercentage = parseFloat(inputPercent);
-        };
-        PercentageResize();
+
+if (CheckKeyPress == true) {
+    window.selectedPercentage = 100;
+    window.CheckKeyPressed = {};
+    for (var e = 0; e < window.KeyControl.length; e++) {
+        window.CheckKeyPressed[window.KeyControl[e]] = true;
     };
+
+    window.keysPressed = {};
+    document.addEventListener('keydown', (event) => {
+        window.keysPressed[event.key] = true;
+        if (JSON.stringify(window.keysPressed) == JSON.stringify(window.CheckKeyPressed)) {
+            window.keysPressed = {};
+            var inputPercent = window.prompt("Resize image to input percentage", window.selectedPercentage.toFixed(2));
+            if (parseFloat(inputPercent) > 0) {
+                window.selectedPercentage = parseFloat(inputPercent);
+            };
+            PercentageResize();
+        };
+
+        console.log(JSON.stringify(window.keysPressed))
+        console.log(JSON.stringify(window.CheckKeyPressed))
+    });
+
+    document.addEventListener('keyup', (event) => {
+        delete window.keysPressed[event.key];
+        console.log(JSON.stringify(window.keysPressed))
+        console.log(JSON.stringify(window.CheckKeyPressed))
+    });
+
+    setInterval(function() {window.keysPressed = {};}, 1000);
 };
 
 var site = window.location.hostname;
 
 if (site == 'chan.sankakucomplex.com') {
-	try {
+    try {
         // Remove ad Div and image padding to save extra space at top of page
         document.querySelector('#post-content').style.padding = '0px';
         var adDivs = document.querySelectorAll('#sp1');
@@ -95,9 +113,9 @@ if (site == 'chan.sankakucomplex.com') {
             };
         };
 
-		var ResizeImage = () => {
-			var imageHeight = window.DOMimage.height;
-			var imageWidth = window.DOMimage.width;
+        var ResizeImage = () => {
+            var imageHeight = window.DOMimage.height;
+            var imageWidth = window.DOMimage.width;
 
             var windowHeight = window.innerHeight;
             var windowWidth = document.documentElement.clientWidth - document.querySelector('#post-view div[class="sidebar"]').getWidth() - window.getComputedStyle(document.querySelector('#post-view div[class="sidebar"]')).marginRight.replace('px', '') - 10;
@@ -106,7 +124,7 @@ if (site == 'chan.sankakucomplex.com') {
             if (imageHeight > windowHeight && (windowHeight / imageHeight) * imageWidth < windowWidth ) {
                 window.DOMimage.height = windowHeight;
                 window.DOMimage.width = (windowHeight / imageHeight) * imageWidth;
-            // if image width is more than image container but image height when recalculated is not bigger than the window
+                // if image width is more than image container but image height when recalculated is not bigger than the window
             } else if (imageWidth > windowWidth && (windowWidth / imageWidth) * imageHeight < windowHeight) {
                 window.DOMimage.width = windowWidth;
                 window.DOMimage.height = (windowWidth / imageWidth) * imageHeight;
@@ -115,10 +133,10 @@ if (site == 'chan.sankakucomplex.com') {
             window.DOMimageNewWidth = window.DOMimage.width;
 
             window.DOMimage.scrollIntoView(false);
-		};
+        };
 
-		window.DOMimage.click(); // Get larger image if exists
-		setTimeout(ResizeImage, 200);
+        window.DOMimage.click(); // Get larger image if exists
+        setTimeout(ResizeImage, 200);
         window.DOMimage.addEventListener('click', window.CheckClick);
 
         // Ensure page scrolls to image on refresh
@@ -126,7 +144,7 @@ if (site == 'chan.sankakucomplex.com') {
             window.DOMimage.scrollIntoView(false);
         };
 
-	} catch(err) {console.log("chan.sankaku Error: " + err);};
+    } catch(err) {console.log("chan.sankaku Error: " + err);};
 };
 
 if (site == 'danbooru.donmai.us') {
@@ -157,9 +175,9 @@ if (site == 'danbooru.donmai.us') {
             };
         };
 
-		var ResizeImage = () => {
-			var imageHeight = window.DOMimage.style.height.replace('px', '');
-			var imageWidth = window.DOMimage.style.width.replace('px', '');
+        var ResizeImage = () => {
+            var imageHeight = window.DOMimage.style.height.replace('px', '');
+            var imageWidth = window.DOMimage.style.width.replace('px', '');
 
             var windowHeight = window.innerHeight;
             var windowWidth = window.innerWidth - document.querySelector('#sidebar').offsetWidth;
@@ -168,7 +186,7 @@ if (site == 'danbooru.donmai.us') {
             if (imageHeight > windowHeight && (windowHeight / imageHeight) * imageWidth < windowWidth ) {
                 window.DOMimage.style.height = windowHeight + "px";
                 window.DOMimage.style.width = ((windowHeight / imageHeight) * imageWidth) + "px";
-            // if image width is more than image container but image height when recalculated is not bigger than the window
+                // if image width is more than image container but image height when recalculated is not bigger than the window
             } else if (imageWidth > windowWidth && (windowWidth / imageWidth) * imageHeight < windowHeight) {
                 window.DOMimage.style.width = windowWidth + "px";
                 window.DOMimage.style.height = ((windowWidth / imageWidth) * imageHeight) + "px";
@@ -177,7 +195,7 @@ if (site == 'danbooru.donmai.us') {
             window.DOMimageNewWidth = window.DOMimage.style.width.replace('px', '');
 
             window.DOMimage.scrollIntoView(false);
-		};
+        };
 
         if (document.querySelector('a[class="image-view-original-link"]')) {
             document.querySelector('a[class="image-view-original-link"]').click();} // Get larger image if exists
@@ -190,7 +208,7 @@ if (site == 'danbooru.donmai.us') {
             window.DOMimage.scrollIntoView(false);
         };
 
-	} catch(err) {console.log("danbooru.donmai Error: " + err);};
+    } catch(err) {console.log("danbooru.donmai Error: " + err);};
 };
 
 if (site == 'gelbooru.com') {
@@ -218,9 +236,9 @@ if (site == 'gelbooru.com') {
             };
         };
 
-		var ResizeImage = () => {
-			var imageHeight = window.DOMimage.height
-			var imageWidth = window.DOMimage.width
+        var ResizeImage = () => {
+            var imageHeight = window.DOMimage.height
+            var imageWidth = window.DOMimage.width
 
             var windowHeight = window.innerHeight;
             var windowWidth = document.querySelector('#post-view').offsetWidth;
@@ -228,13 +246,13 @@ if (site == 'gelbooru.com') {
             // if image height is more than window but image width when recalculated is not bigger than the image container
             if (imageHeight > windowHeight && (windowHeight / imageHeight) * imageWidth < windowWidth ) {
                 window.DOMimage.style.width = ((windowHeight / imageHeight) * imageWidth) + 'px'
-            // if image width is more than image container but image height when recalculated is not bigger than the window
+                // if image width is more than image container but image height when recalculated is not bigger than the window
             } else if (imageWidth > windowWidth && (windowWidth / imageWidth) * imageHeight < windowHeight) {
                 window.DOMimage.style.width = windowWidth + 'px';
             }
             window.DOMimageNewWidth = window.DOMimage.style.width.replace('px', '');
             window.DOMimage.scrollIntoView(false);
-		};
+        };
 
         if (document.querySelector('#resized_notice a')) {
             document.querySelector('#resized_notice a').click();} // Get larger image if exists
@@ -245,7 +263,7 @@ if (site == 'gelbooru.com') {
             bannerDivs[i].remove();
         };
 
-		setTimeout(ResizeImage, 300);
+        setTimeout(ResizeImage, 300);
         window.DOMimage.addEventListener('click', window.CheckClick);
 
         // Ensure page scrolls to image on refresh
@@ -253,7 +271,7 @@ if (site == 'gelbooru.com') {
             window.DOMimage.scrollIntoView(false);
         };
 
-	} catch(err) {console.log("gelbooru Error: " + err);};
+    } catch(err) {console.log("gelbooru Error: " + err);};
 }
 
 if (site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || site == 'yande.re' || site == 'konachan.com' || site == 'drunkenpumken.booru.org') {
@@ -268,6 +286,9 @@ if (site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || sit
                 setTimeout(function() {
                     var currentDOMimgHeight = window.DOMimage.height;
                     var currentDomimgWidth = window.DOMimage.width;
+
+                    console.log(window.singleClickAction);
+
                     if (window.clickCount == window.singleClickAction) {
                         window.DOMimage.height = currentDOMimgHeight / imageDecreaseAmount;
                         window.DOMimage.width = currentDomimgWidth / imageDecreaseAmount;
@@ -286,9 +307,9 @@ if (site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || sit
             };
         };
 
-		var ResizeImage = () => {
-			var imageHeight = window.DOMimage.height
-			var imageWidth = window.DOMimage.width
+        var ResizeImage = () => {
+            var imageHeight = window.DOMimage.height
+            var imageWidth = window.DOMimage.width
 
             var windowHeight = window.innerHeight;
             var windowWidth = document.documentElement.clientWidth - document.querySelector('#post-view div[class="sidebar"]').clientWidth - window.getComputedStyle(document.querySelector('#post-view div[class="sidebar"]')).marginRight.replace('px', '') - 50;
@@ -297,7 +318,7 @@ if (site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || sit
             if (imageHeight > windowHeight && (windowHeight / imageHeight) * imageWidth < windowWidth ) {
                 window.DOMimage.height = windowHeight;
                 window.DOMimage.width = (windowHeight / imageHeight) * imageWidth;
-            // if image width is more than image container but image height when recalculated is not bigger than the window
+                // if image width is more than image container but image height when recalculated is not bigger than the window
             } else if (imageWidth > windowWidth && (windowWidth / imageWidth) * imageHeight < windowHeight) {
                 window.DOMimage.width = windowWidth;
                 window.DOMimage.height = (windowWidth / imageWidth) * imageHeight;
@@ -306,7 +327,7 @@ if (site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || sit
             window.DOMimageNewWidth = window.DOMimage.width;
 
             window.DOMimage.scrollIntoView(false);
-		};
+        };
 
         if (document.querySelector('#resized_notice a')) {
             setTimeout(function(){document.querySelector('#resized_notice a').click();}, 300); // Get larger image if exists
@@ -322,7 +343,7 @@ if (site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || sit
             };
         };
 
-		setTimeout(ResizeImage, 300);
+        setTimeout(ResizeImage, 300);
         window.DOMimage.addEventListener('click', window.CheckClick);
 
         // Ensure page scrolls to image on refresh
@@ -330,7 +351,7 @@ if (site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || sit
             window.DOMimage.scrollIntoView(false);
         };
 
-	} catch(err) {console.log("booru Error: " + err);};
+    } catch(err) {console.log("booru Error: " + err);};
 }
 
 if (site == 'rule34.paheal.net') {
@@ -362,9 +383,9 @@ if (site == 'rule34.paheal.net') {
             };
         };
 
-		var ResizeImage = () => {
-			var imageHeight = window.DOMimage.height
-			var imageWidth = window.DOMimage.width
+        var ResizeImage = () => {
+            var imageHeight = window.DOMimage.height
+            var imageWidth = window.DOMimage.width
 
             var windowHeight = window.innerHeight;
             var windowWidth = document.querySelector('#Imagemain div[class="blockbody"]').clientWidth;
@@ -373,7 +394,7 @@ if (site == 'rule34.paheal.net') {
             if (imageHeight > windowHeight && (windowHeight / imageHeight) * imageWidth < windowWidth ) {
                 window.DOMimage.height = windowHeight;
                 window.DOMimage.width = (windowHeight / imageHeight) * imageWidth;
-            // if image width is more than image container but image height when recalculated is not bigger than the window
+                // if image width is more than image container but image height when recalculated is not bigger than the window
             } else if (imageWidth > windowWidth && (windowWidth / imageWidth) * imageHeight < windowHeight) {
                 window.DOMimage.width = windowWidth;
                 window.DOMimage.height = (windowWidth / imageWidth) * imageHeight;
@@ -382,9 +403,9 @@ if (site == 'rule34.paheal.net') {
             window.DOMimageNewWidth = window.DOMimage.width;
 
             window.DOMimage.scrollIntoView(false);
-		};
+        };
 
-		setTimeout(ResizeImage, 300);
+        setTimeout(ResizeImage, 300);
         $(DOMimage).unbind("click");
         window.DOMimage.addEventListener('click', window.CheckClick);
         window.DOMimage.style = "";
@@ -394,7 +415,7 @@ if (site == 'rule34.paheal.net') {
             window.DOMimage.scrollIntoView(false);
         };
 
-	} catch(err) {console.log("rule34.paheal Error: " + err);};
+    } catch(err) {console.log("rule34.paheal Error: " + err);};
 }
 
 if (site == 'nozomi.la') {
@@ -427,9 +448,9 @@ if (site == 'nozomi.la') {
             };
         };
 
-		var ResizeImage = () => {
-			var imageHeight = window.DOMimage.height
-			var imageWidth = window.DOMimage.width
+        var ResizeImage = () => {
+            var imageHeight = window.DOMimage.height
+            var imageWidth = window.DOMimage.width
 
             var windowHeight = window.innerHeight;
             var windowWidth = window.innerWidth - document.querySelector('div[class="sidebar"]').clientWidth;
@@ -438,7 +459,7 @@ if (site == 'nozomi.la') {
             if (imageHeight > windowHeight && (windowHeight / imageHeight) * imageWidth < windowWidth ) {
                 window.DOMimage.height = windowHeight;
                 window.DOMimage.width = (windowHeight / imageHeight) * imageWidth;
-            // if image width is more than image container but image height when recalculated is not bigger than the window
+                // if image width is more than image container but image height when recalculated is not bigger than the window
             } else if (imageWidth > windowWidth && (windowWidth / imageWidth) * imageHeight < windowHeight) {
                 window.DOMimage.width = windowWidth;
                 window.DOMimage.height = (windowWidth / imageWidth) * imageHeight;
@@ -447,9 +468,9 @@ if (site == 'nozomi.la') {
             window.DOMimageNewWidth = window.DOMimage.width;
 
             window.DOMimage.scrollIntoView(false);
-		};
+        };
         document.querySelector('div[class="post"] a').removeAttribute('href')
-		setTimeout(ResizeImage, 300);
+        setTimeout(ResizeImage, 300);
         window.DOMimage.addEventListener('click', window.CheckClick);
         window.DOMimage.style.maxWidth = "1000%";
 
@@ -458,11 +479,11 @@ if (site == 'nozomi.la') {
             window.DOMimage.scrollIntoView(false);
         };
 
-	} catch(err) {console.log("Nozomi Error: " + err);};
+    } catch(err) {console.log("Nozomi Error: " + err);};
 };
 
 if (site == 'e621.net') {
-	try {
+    try {
         window.DOMimage = document.querySelector('#image');
         window.clickCount = 0;
         window.timeout = 400;
@@ -490,9 +511,9 @@ if (site == 'e621.net') {
             };
         };
 
-		var ResizeImage = () => {
-			var imageHeight = window.DOMimage.height;
-			var imageWidth = window.DOMimage.width;
+        var ResizeImage = () => {
+            var imageHeight = window.DOMimage.height;
+            var imageWidth = window.DOMimage.width;
 
             var windowHeight = window.innerHeight;
             var windowWidth = document.querySelector('#image-container').clientWidth;
@@ -501,7 +522,7 @@ if (site == 'e621.net') {
             if (imageHeight > windowHeight && (windowHeight / imageHeight) * imageWidth < windowWidth ) {
                 window.DOMimage.height = windowHeight;
                 window.DOMimage.width = (windowHeight / imageHeight) * imageWidth;
-            // if image width is more than image container but image height when recalculated is not bigger than the window
+                // if image width is more than image container but image height when recalculated is not bigger than the window
             } else if (imageWidth > windowWidth && (windowWidth / imageWidth) * imageHeight < windowHeight) {
                 window.DOMimage.width = windowWidth;
                 window.DOMimage.height = (windowWidth / imageWidth) * imageHeight;
@@ -510,13 +531,13 @@ if (site == 'e621.net') {
             window.DOMimageNewWidth = window.DOMimage.width;
 
             window.DOMimage.scrollIntoView(false);
-		};
+        };
 
         if (document.querySelector('#image-resize-link')) {
             document.querySelector('#image-resize-link').click(); // Get larger image if exists
         };
 
-		setTimeout(ResizeImage, 200);
+        setTimeout(ResizeImage, 200);
         window.DOMimage.addEventListener('click', window.CheckClick);
         window.DOMimage.style.maxWidth = "1000%";
 
@@ -525,7 +546,7 @@ if (site == 'e621.net') {
             window.DOMimage.scrollIntoView(false);
         };
 
-	} catch(err) {console.log("e621 Error: " + err);};
+    } catch(err) {console.log("e621 Error: " + err);};
 };
 
 
