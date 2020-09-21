@@ -47,7 +47,7 @@ Websites
     <td>Reset zoom to 100% and realign image</td>
   </tr>
   <tr>
-    <td>ALT + R</td>
+    <td>ALT + R (changable)</td>
     <td>Prompt to manually change zoom level percentage</td>
   </tr>
 </tbody>
