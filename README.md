@@ -36,19 +36,58 @@ Websites
 <tbody>
   <tr>
     <td>Single Click</td>
-    <td>Decrease image size (default 1.2x)</td>
+    <td>Change image size (default: Decrease by 1.2x)</td>
   </tr>
   <tr>
     <td>Double Click</td>
-    <td>Increase image size (default 1.2x)</td>
+    <td>Change image size (default: Increase by 1.2x)</td>
   </tr>
   <tr>
     <td>Triple Click</td>
-    <td>Reset zoom</td>
+    <td>Reset zoom to 100% and realign image</td>
   </tr>
   <tr>
     <td>ALT + R</td>
     <td>Prompt to manually change zoom level percentage</td>
+  </tr>
+</tbody>
+</table>
+
+  User Settings 
+  -----------
+ <table>
+<thead>
+  <tr>
+    <th>Setting</th>
+    <th>Default Value</th>
+    <th>Explanation</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>CheckKeyPress</td>
+    <td>true</td>
+    <td>Enables or disables the checking of the key presses for the percentage prompt. Disabling this setting means you can no longer set an exact image size</td>
+  </tr>
+  <tr>
+    <td>imageDecreaseAmount</td>
+    <td>1.2</td>
+    <td>Decreases the image by x amount on the increase image click event</td>
+  </tr>
+  <tr>
+    <td>imageIncreaseAmount</td>
+    <td>1.2</td>
+    <td>Increases the image by x amount on the increase image click event</td>
+  </tr>
+  <tr>
+    <td>singleClickDecrease</td>
+    <td>true</td>
+    <td>Single clicking an image will decreases it's size and double clicking will increase its size. Change this setting to false to flip this behaviour</td>
+  </tr>
+  <tr>
+    <td>KeyControl</td>
+    <td>['Alt', 'r']</td>
+    <td>Determines which keys will activate prompt for image resizing. For example: ['Alt', 'Ctrl', 'q'] for Alt+Ctrl+Q.</td>
   </tr>
 </tbody>
 </table>
