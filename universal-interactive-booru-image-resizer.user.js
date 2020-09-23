@@ -256,8 +256,8 @@ if (site == 'gelbooru.com') {
 
         if (document.querySelector('#resized_notice a')) {
             document.querySelector('#resized_notice a').click();} // Get larger image if exists
-
-        document.querySelector('div[class="contain-push"] div:nth-child(2) a img').parentElement.parentElement.remove() // Remove random banner
+        if (document.querySelector('div[class="contain-push"] div:nth-child(2) a img')) {
+            document.querySelector('div[class="contain-push"] div:nth-child(2) a img').parentElement.parentElement.remove()}; // Remove random banner if exists
         var bannerDivs = document.querySelectorAll('div[class="alert alert-info"]');
         for (var i = 0; i < bannerDivs.length; i++) {
             bannerDivs[i].remove();
