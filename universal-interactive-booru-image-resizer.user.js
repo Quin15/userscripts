@@ -3,8 +3,8 @@
 // @namespace   Quin15
 // @version     1.1.3
 // @author      Quin15
-// @downloadURL https://github.com/Quin15/userscripts/raw/master/universal-interactive-booru-image-resizer.user.js
-// @updateURL   https://github.com/Quin15/userscripts/raw/master/universal-interactive-booru-image-resizer.user.js
+// @downloadURL https://github.com/Quin15/Booru-Image-Resizer/raw/master/universal-interactive-booru-image-resizer.user.js
+// @updateURL   https://github.com/Quin15/Booru-Image-Resizer/raw/master/universal-interactive-booru-image-resizer.user.js
 // @grant       none
 
 // @match       *://chan.sankakucomplex.com/*
