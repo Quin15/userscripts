@@ -554,9 +554,9 @@ function PercentageResize() {
         window.DOMimage.height = window.DOMimageNewHeight * (window.selectedPercentage / 100);
         window.DOMimage.width = window.DOMimageNewWidth * (window.selectedPercentage / 100);
     } else if (site == 'danbooru.donmai.us') {
-        window.DOMimage.style.height = parseInt(window.DOMimage.style.height.replace('px', '')) * (window.selectedPercentage / 100) + 'px'
-        window.DOMimage.style.width = parseInt(window.DOMimage.style.width.replace('px', '')) * (window.selectedPercentage / 100) + 'px'
+        window.DOMimage.style.height = window.DOMimageNewHeight * (window.selectedPercentage / 100) + 'px'
+        window.DOMimage.style.width = window.DOMimageNewWidth * (window.selectedPercentage / 100) + 'px'
     } else if (site == 'gelbooru.com'){
-        window.DOMimage.style.width = parseInt(window.DOMimage.style.width.replace('px', '')) * (window.selectedPercentage / 100) + 'px'
+        window.DOMimage.style.width = window.DOMimageNewWidth * (window.selectedPercentage / 100) + 'px'
     };
 };
