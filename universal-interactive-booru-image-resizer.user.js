@@ -230,7 +230,7 @@ if (site == 'gelbooru.com') {
                         window.DOMimage.style.width = window.DOMimageNewWidth + 'px';
                         window.DOMimage.scrollIntoView(false);
                     }
-                    window.selectedPercentage = (100 / window.DOMimageNewHeight) * window.DOMimage.height;
+                    window.selectedPercentage = (100 / window.DOMimageNewWidth) * window.DOMimage.width;
                     window.clickCount = 0;
                 }, window.timeout || 400);
             };
