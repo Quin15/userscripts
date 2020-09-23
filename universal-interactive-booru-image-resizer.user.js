@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Universal Interactive Booru Image Resizer
 // @namespace   Quin15
-// @version     1.0.2
+// @version     1.0.3
 // @author      Quin15
 // @downloadURL https://github.com/Quin15/userscripts/raw/master/universal-interactive-booru-image-resizer.user.js
 // @updateURL   https://github.com/Quin15/userscripts/raw/master/universal-interactive-booru-image-resizer.user.js
@@ -62,14 +62,14 @@ if (CheckKeyPress == true) {
             PercentageResize();
         };
 
-        console.log(JSON.stringify(window.keysPressed))
-        console.log(JSON.stringify(window.CheckKeyPressed))
+        //console.log(JSON.stringify(window.keysPressed))
+        //console.log(JSON.stringify(window.CheckKeyPressed))
     });
 
     document.addEventListener('keyup', (event) => {
         delete window.keysPressed[event.key];
-        console.log(JSON.stringify(window.keysPressed))
-        console.log(JSON.stringify(window.CheckKeyPressed))
+        //console.log(JSON.stringify(window.keysPressed))
+        //console.log(JSON.stringify(window.CheckKeyPressed))
     });
 
     setInterval(function() {window.keysPressed = {};}, 1000);
@@ -549,15 +549,14 @@ if (site == 'e621.net') {
     } catch(err) {console.log("e621 Error: " + err);};
 };
 
-
 function PercentageResize() {
     if (site == 'chan.sankakucomplex.com' || site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || site == 'yande.re' || site == 'konachan.com' || site == 'drunkenpumken.booru.org' || site == 'rule34.paheal.net' || site == 'nozomi.la' || site == 'e621.net') {
         window.DOMimage.height = window.DOMimageNewHeight * (window.selectedPercentage / 100);
         window.DOMimage.width = window.DOMimageNewWidth * (window.selectedPercentage / 100);
     } else if (site == 'danbooru.donmai.us') {
-        window.DOMimage.style.height = (window.DOMimage.style.height.replace('px', '') * imageIncreaseAmount) + "px";
-        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * imageIncreaseAmount) + "px";
+        window.DOMimage.style.height = parseInt(window.DOMimage.style.height.replace('px', '')) * (window.selectedPercentage / 100) + 'px'
+        window.DOMimage.style.width = parseInt(window.DOMimage.style.width.replace('px', '')) * (window.selectedPercentage / 100) + 'px'
     } else if (site == 'gelbooru.com'){
-        window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * imageIncreaseAmount) + "px";
+        window.DOMimage.style.width = parseInt(window.DOMimage.style.width.replace('px', '')) * (window.selectedPercentage / 100) + 'px'
     };
 };
