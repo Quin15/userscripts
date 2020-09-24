@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Universal Interactive Booru Image Resizer
 // @namespace   Quin15
-// @version     1.1.3
+// @version     1.1.4
 // @author      Quin15
 // @downloadURL https://github.com/Quin15/Booru-Image-Resizer/raw/master/universal-interactive-booru-image-resizer.user.js
 // @updateURL   https://github.com/Quin15/Booru-Image-Resizer/raw/master/universal-interactive-booru-image-resizer.user.js
@@ -202,7 +202,8 @@ if (site == 'danbooru.donmai.us') {
 
         setTimeout(ResizeImage, 300);
         window.DOMimage.addEventListener('click', window.CheckClick);
-
+        $(window.DOMimage).removeClass("fit-width");
+        
         // Ensure page scrolls to image on refresh
         window.onbeforeunload = function () {
             window.DOMimage.scrollIntoView(false);
