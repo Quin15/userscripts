@@ -118,8 +118,9 @@ if (site == 'chan.sankakucomplex.com') {
             var imageWidth = window.DOMimage.width;
 
             var windowHeight = window.innerHeight;
-            var windowWidth = document.documentElement.clientWidth - document.querySelector('#post-view div[class="sidebar"]').getWidth() - window.getComputedStyle(document.querySelector('#post-view div[class="sidebar"]')).marginRight.replace('px', '') - 10;
-
+            //var windowWidth = document.documentElement.clientWidth - document.querySelector('#post-view div[class="sidebar"]').getWidth() - window.getComputedStyle(document.querySelector('#post-view div[class="sidebar"]')).marginRight.replace('px', '') - 10;
+            var windowWidth = document.documentElement.clientWidth - 227.84;
+            
             // if image height is more than window but image width when recalculated is not bigger than the image container
             if (imageHeight > windowHeight && (windowHeight / imageHeight) * imageWidth < windowWidth ) {
                 window.DOMimage.height = windowHeight;
