@@ -4,8 +4,8 @@
 // @version     0.0.1 (1.1.4)
 // @description A partially compression enabled version of Universal Interactive Booru Image Resizer
 // @author      Quin15
-// @downloadURL https://github.com/Quin15/Booru-Image-Resizer/raw/master/compression-enabled-UIBIR.user.js
-// @updateURL   https://github.com/Quin15/Booru-Image-Resizer/raw/master/compression-enabled-UIBIR.user.js
+// @downloadURL https://github.com/Quin15/Booru-Image-Resizer/raw/master/UIBIR-compression.user.js
+// @updateURL   https://github.com/Quin15/Booru-Image-Resizer/raw/master/UIBIR-compression.user.js
 // @grant       none
 
 // @match       *://chan.sankakucomplex.com/*
