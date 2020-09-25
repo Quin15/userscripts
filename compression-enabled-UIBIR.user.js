@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        Compression Enabled Universal Interactive Booru Image Resizer
+// @name        Universal Interactive Booru Image Resizer /w Compression
 // @namespace   Quin15
 // @version     0.0.1 (1.1.4)
 // @description A partially compression enabled version of Universal Interactive Booru Image Resizer
