@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name        Universal Interactive Booru Image Resizer
 // @namespace   Quin15
-// @version     1.1.4
+// @version     1.1.5
 // @author      Quin15
 // @downloadURL https://github.com/Quin15/Booru-Image-Resizer/raw/master/universal-interactive-booru-image-resizer.user.js
 // @updateURL   https://github.com/Quin15/Booru-Image-Resizer/raw/master/universal-interactive-booru-image-resizer.user.js
 // @grant       none
+// @require http://code.jquery.com/jquery-3.4.1.min.js
 
 // @match       *://chan.sankakucomplex.com/*
 // @match       *://danbooru.donmai.us/*
@@ -19,6 +20,8 @@
 // @match       *://konachan.com/*
 // @match       *://e621.net/*
 // @match       *://drunkenpumken.booru.org/*
+// @match       *://e-hentai.org/*
+// @match       *://exhentai.org/*
 
 // ==/UserScript==
 
@@ -552,13 +555,91 @@ function resizeImageAll() {
 
         } catch(err) {console.log("e621 Error: " + err);};
     };
+
+
+
+    if(site == 'exhentai.org' || site =='e-hentai.org') {
+        try {
+            window.CheckClick = function() {
+                window.clickCount++;
+                if (window.clickCount == 1) {
+                    setTimeout(function() {
+                        if (window.clickCount == window.singleClickAction) {
+                            window.DOMimage.style.height = (window.DOMimage.style.height.replace('px', '') / imageDecreaseAmount) + "px";
+                            window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') / imageDecreaseAmount) + "px";
+                        } else if(window.clickCount == window.doubleClickAction) {
+                            window.DOMimage.style.height = (window.DOMimage.style.height.replace('px', '') * imageIncreaseAmount) + "px";
+                            window.DOMimage.style.width = (window.DOMimage.style.width.replace('px', '') * imageIncreaseAmount) + "px";
+                        } else {
+                            // Triple click - Revert image back to default new size
+                            window.DOMimage.style.height = window.DOMimageNewHeight + 'px';
+                            window.DOMimage.style.width = window.DOMimageNewWidth + 'px';
+                            window.DOMimage.scrollIntoView(false);
+                        }
+                        window.selectedPercentage = (100 / window.DOMimageNewHeight) * window.DOMimage.height;
+                        window.clickCount = 0;
+                    }, window.timeout || 400);
+                };
+            };
+
+            var ResizeImage = () => {
+                var imageHeight = window.DOMimage.style.height.replace('px', '');
+                var imageWidth = window.DOMimage.style.width.replace('px', '');
+
+                var windowHeight = window.innerHeight;
+                var windowWidth = window.innerWidth
+
+                // if image height is more than window but image width when recalculated is not bigger than the image container
+                if (imageHeight > windowHeight && (windowHeight / imageHeight) * imageWidth < windowWidth ) {
+                    window.DOMimage.style.height = windowHeight + "px";
+                    window.DOMimage.style.width = ((windowHeight / imageHeight) * imageWidth) + "px";
+                    // if image width is more than image container but image height when recalculated is not bigger than the window
+                } else if (imageWidth > windowWidth && (windowWidth / imageWidth) * imageHeight < windowHeight) {
+                    window.DOMimage.style.width = windowWidth + "px";
+                    window.DOMimage.style.height = ((windowWidth / imageWidth) * imageHeight) + "px";
+                }
+                window.DOMimageNewHeight = window.DOMimage.style.height.replace('px', '');
+                window.DOMimageNewWidth = window.DOMimage.style.width.replace('px', '');
+
+                window.DOMimage.scrollIntoView(false);
+            };
+
+            function resizeInitiator() {
+                window.DOMimage = document.querySelector('#img');
+                window.clickCount = 0;
+                window.timeout = 400;
+
+                setTimeout(ResizeImage, 300);
+                window.DOMimage.parentElement.removeAttribute("href");
+                window.DOMimage.parentElement.removeAttribute("onclick");
+                window.DOMimage.style.maxWidth = "";
+                window.DOMimage.style.maxHeight = "";
+                window.DOMimage.addEventListener('click', window.CheckClick);
+
+            }
+            // Ensure page scrolls to image on refresh
+            window.onbeforeunload = function () {
+                window.DOMimage.scrollIntoView(false);
+            };
+
+            setTimeout(resizeInitiator, 500);
+            var loadedPageURL = window.location.href;
+            var hrefCheck = setInterval(function() {
+                if (loadedPageURL != window.location.href) {
+                    loadedPageURL = window.location.href;
+                    setTimeout(resizeInitiator, 500);
+                };
+            }, 100);
+
+        } catch(err) {console.log("e-hentai/exhentai Error: " + err);};
+    };
 };
 
 function PercentageResize() {
     if (site == 'chan.sankakucomplex.com' || site == 'tbib.org' || site == 'safebooru.org' || site == 'rule34.xxx' || site == 'yande.re' || site == 'konachan.com' || site == 'drunkenpumken.booru.org' || site == 'rule34.paheal.net' || site == 'nozomi.la' || site == 'e621.net') {
         window.DOMimage.height = window.DOMimageNewHeight * (window.selectedPercentage / 100);
         window.DOMimage.width = window.DOMimageNewWidth * (window.selectedPercentage / 100);
-    } else if (site == 'danbooru.donmai.us') {
+    } else if (site == 'danbooru.donmai.us' || site == 'exhentai.org' || site =='e-hentai.org') {
         window.DOMimage.style.height = window.DOMimageNewHeight * (window.selectedPercentage / 100) + 'px'
         window.DOMimage.style.width = window.DOMimageNewWidth * (window.selectedPercentage / 100) + 'px'
     } else if (site == 'gelbooru.com'){
