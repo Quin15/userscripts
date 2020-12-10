@@ -5,9 +5,6 @@
 // @author      Quin15
 // @downloadURL https://github.com/Quin15/Booru-Image-Resizer/raw/master/universal-interactive-booru-image-resizer.user.js
 // @updateURL   https://github.com/Quin15/Booru-Image-Resizer/raw/master/universal-interactive-booru-image-resizer.user.js
-// @grant       none
-// @require http://code.jquery.com/jquery-3.4.1.min.js
-
 // @match       *://chan.sankakucomplex.com/*
 // @match       *://danbooru.donmai.us/*
 // @match       *://gelbooru.com/*
