@@ -23,6 +23,8 @@ Websites
   * <img src="https://konachan.com/favicon.ico" width="16"> konachan.com
   * ![Image](https://e621.net//favicon.ico "icon") e621.net
   * ![Image](https://drunkenpumken.booru.org/favicon.ico "icon") drunkenpumken.booru.org
+  * ![Image](https://e-hentai.org/favicon.ico "icon") e-hentai.org
+  * ![Image](https://e-hentai.org/favicon.ico "icon") exhentai.org
   
   Interactability 
   -----------
